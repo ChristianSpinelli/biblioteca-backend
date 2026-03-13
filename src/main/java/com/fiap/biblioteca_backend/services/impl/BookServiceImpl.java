@@ -30,4 +30,9 @@ public class BookServiceImpl implements BookService {
         Book book = this.bookMapper.toEntity(bookDTO);
         return this.bookRepository.save(book);
     }
+
+    @Override
+    public void deleteBookById(Long bookId) {
+        this.bookRepository.deleteById(bookId);
+    }
 }
