@@ -36,4 +36,9 @@ public class BookController {
         this.bookService.deleteBookById(bookId);
         return ResponseEntity.ok("Livro excluído com sucesso");
     }
+
+    @PutMapping("/book/{bookId}")
+    public ResponseEntity<?> updateBook(@PathVariable("bookId") Long bookId, @RequestBody BookDTO bookDTO){
+
+    }
 }

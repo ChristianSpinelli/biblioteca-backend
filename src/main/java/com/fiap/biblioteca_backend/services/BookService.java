@@ -10,4 +10,5 @@ public interface BookService {
     public List<BookDTO> listBooks(Long lastBookId, Integer pageLength);
     public Book saveBook(BookDTO bookDTO);
     public void deleteBookById(Long bookId);
+    public void updateBook(BookDTO bookDTO, Long bookId);
 }
