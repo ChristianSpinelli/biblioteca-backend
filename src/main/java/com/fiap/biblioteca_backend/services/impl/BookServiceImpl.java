@@ -41,9 +41,9 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
-    public void updateBook(BookDTO bookDTO, Long bookId) {
+    public Book updateBook(BookDTO bookDTO, Long bookId) {
         Book book = this.bookRepository.findById(bookId).orElseThrow(() -> new RuntimeException("Livro não encontrado"));
         this.bookMapper.updateEntityFromDTO(bookDTO, book);
-        this.bookRepository.save(book);
+        return this.bookRepository.save(book);
     }
 }

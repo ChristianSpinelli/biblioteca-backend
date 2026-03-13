@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
 
-    @Query(value = "SELECT * from books b WHERE b.id > :lastBookId LIMIT pageLength", nativeQuery = true)
+    @Query(value = "SELECT * from books b WHERE b.id > :lastBookId LIMIT :pageLength", nativeQuery = true)
     public List<Book> listBooks(
             @Param("lastBookId") Long lastBookId,
             @Param("pageLength") Integer pageLength
