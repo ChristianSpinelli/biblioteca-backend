@@ -1,0 +1,36 @@
+services:
+  postgres:
+    container_name: biblioteca-db
+    image: bitnami/postgresql:latest
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRESQL_USERNAME=c.spin
+      - POSTGRESQL_PASSWORD=9FSDT_01
+      - POSTGRESQL_DATABASE=biblioteca
+    volumes:
+      - biblioteca_pg_data:/bitnami/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U c.spin -d biblioteca"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ./src
+      dockerfile: Dockerfile
+    container_name: biblioteca-backend
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/biblioteca
+      - SPRING_DATASOURCE_USERNAME=c.spin
+      - SPRING_DATASOURCE_PASSWORD=9FSDT_01
+    ports:
+      - "8080:8080"
+
+volumes:
+  biblioteca_pg_data:
