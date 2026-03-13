@@ -33,6 +33,13 @@ public class BookController {
 
     @DeleteMapping("/book/{bookId}")
     public ResponseEntity<?> deleteBook(@PathVariable("bookId") Long bookId){
+        this.bookService.deleteBookById(bookId);
+        return ResponseEntity.ok("Livro excluído com sucesso");
+    }
 
+    @PutMapping("/book/{bookId}")
+    public ResponseEntity<?> updateBook(@PathVariable("bookId") Long bookId, @RequestBody BookDTO bookDTO){
+        Book book = this.bookService.updateBook(bookDTO, bookId);
+        return ResponseEntity.ok(book);
     }
 }

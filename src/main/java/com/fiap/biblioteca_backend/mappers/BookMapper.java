@@ -19,6 +19,13 @@ public class BookMapper {
         return book;
     }
 
+    public void updateEntityFromDTO(BookDTO bookDTO, Book book){
+        book.setTitle(bookDTO.getTitle());
+        book.setAuthor(bookDTO.getAuthor());
+        book.setYear(bookDTO.getYear());
+        book.setIsbn(bookDTO.getIsbn());
+    }
+
     public BookDTO toDTO(Book book) {
         return new BookDTO(
                 book.getId(),

@@ -7,6 +7,7 @@ import com.fiap.biblioteca_backend.repositories.BookRepository;
 import com.fiap.biblioteca_backend.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,9 +26,24 @@ public class BookServiceImpl implements BookService {
         return this.bookMapper.toDTOList(books);
     }
 
+    @Transactional
     @Override
     public Book saveBook(BookDTO bookDTO) {
         Book book = this.bookMapper.toEntity(bookDTO);
+        return this.bookRepository.save(book);
+    }
+
+    @Transactional
+    @Override
+    public void deleteBookById(Long bookId) {
+        this.bookRepository.deleteById(bookId);
+    }
+
+    @Transactional
+    @Override
+    public Book updateBook(BookDTO bookDTO, Long bookId) {
+        Book book = this.bookRepository.findById(bookId).orElseThrow(() -> new RuntimeException("Livro não encontrado"));
+        this.bookMapper.updateEntityFromDTO(bookDTO, book);
         return this.bookRepository.save(book);
     }
 }
