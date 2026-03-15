@@ -18,7 +18,7 @@ services:
 
   backend:
     build:
-      context: ./src
+      context: .
       dockerfile: Dockerfile
     container_name: biblioteca-backend
     depends_on:
