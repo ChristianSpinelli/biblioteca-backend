@@ -2,6 +2,7 @@ package com.fiap.biblioteca_backend.controllers;
 
 import com.fiap.biblioteca_backend.dto.BookDTO;
 import com.fiap.biblioteca_backend.models.Book;
+import com.fiap.biblioteca_backend.models.Response;
 import com.fiap.biblioteca_backend.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,8 @@ public class BookController {
     @DeleteMapping("/book/{bookId}")
     public ResponseEntity<?> deleteBook(@PathVariable("bookId") Long bookId){
         this.bookService.deleteBookById(bookId);
-        return ResponseEntity.ok("Livro excluído com sucesso");
+        Response response = new Response("Livro excluído com sucesso");
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/book/{bookId}")
